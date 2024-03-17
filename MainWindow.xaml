@@ -1,0 +1,75 @@
+﻿<Window x:Class="lab2_dpgi.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab2_dpgi"
+        mc:Ignorable="d"
+        Title="TextEditor" Height="407.4" Width="524.8">
+
+    <!-- Визначення ресурсів -->
+    <Window.Resources>
+        <!-- Градієнтна заливка LinearPanelBrush -->
+        <LinearGradientBrush x:Key="LinearPanelBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="Yellow" Offset="0"/>
+            <GradientStop Color="Blue" Offset="0.5"/>
+            <GradientStop Color="Yellow" Offset="1"/>
+        </LinearGradientBrush>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="BorderBrush" Value="White"></Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхній рядок з кнопками -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource LinearPanelBrush}">
+            <Button Name="btnOpen">
+                <Button.ToolTip>
+                    <ToolTip>Відкрити</ToolTip>
+                </Button.ToolTip>
+                <Image Source="/imgs/open.png" Width="30" Height="30"/>
+            </Button>
+            <Button Name="btnClear" >
+                <Button.ToolTip>
+                    <ToolTip>Стерти</ToolTip>
+                </Button.ToolTip>
+                <Image Source="/imgs/delete.png" Width="30" Height="30"/>
+            </Button>
+            <Button Name="btnCopy" >
+                <Button.ToolTip>
+                    <ToolTip>Копіювати</ToolTip>
+                </Button.ToolTip>
+                <Image Source="/imgs/copy.png" Width="30" Height="30"/>
+            </Button>
+            <Button Name="btnPaste">
+                <Button.ToolTip>
+                    <ToolTip>Вставити</ToolTip>
+                </Button.ToolTip>
+                <Image Source="/imgs/insert.png" Width="30" Height="30"/>
+            </Button>
+        </StackPanel>
+
+
+        <Grid Grid.Row="1" Margin="10">
+            <Border Background="{StaticResource LinearPanelBrush}" Padding="10" Grid.Row="0" BorderBrush="#FFCBBEBE" BorderThickness="2" CornerRadius="10" />
+            <TextBox x:Name="textBox" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" Margin="30"/>
+            <DockPanel VerticalAlignment="Bottom">
+                <Label Content="Розмір шрифту:" Margin="4"/>
+                <Slider Margin="4" MinWidth="100" Name="fontSlider" Maximum="100" Minimum="12" Value="{Binding ElementName=textBox, Path=FontSize}"/>
+                <Button Name="btnSave" Style="{x:Null}" Content="ОК" DockPanel.Dock="Bottom" Width="20" Margin="5"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.SaveCommand}"/>
+            </DockPanel>
+        </Grid>
+
+        <Border Grid.Row="0" BorderBrush="#FFCBBEBE" BorderThickness="2" CornerRadius="10"/>
+    </Grid>
+  
+</Window>
